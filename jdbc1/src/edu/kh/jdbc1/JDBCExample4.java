@@ -5,12 +5,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Scanner;
 
-public class JDBCExample3 {
+public class JDBCExample4 {
 	public static void main(String[] args) {
-		
-		Scanner sc = new Scanner(System.in);
 		
 		Connection conn = null;
 		Statement stmt = null;
@@ -26,38 +23,32 @@ public class JDBCExample3 {
 			String user = "kh_jjy";
 			String pw = "kh1234";
 			
-			System.out.println("<직원 사번, 이름, 부서명 출력>");
+			conn = DriverManager.getConnection(type + ip + port + sid , user, pw);
 			
-			conn = DriverManager.getConnection(type+ ip + port + sid , user, pw);
+			System.out.println("<70년대생 직원만 조회>");
 			
-			String sql = "SELECT EMP_ID, EMP_NAME, DEPT_TITLE FROM EMPLOYEE JOIN DEPARTMENT ON(DEPT_CODE=DEPT_ID)";
+			String sql = "SELECT EMP_ID, EMP_NAME, EMP_NO FROM EMPLOYEE WHERE EMP_NO LIKE '7%'";
 			
 			stmt = conn.createStatement();
 			
 			rs = stmt.executeQuery(sql);
 			
-			while(rs.next()) {
+			while(rs.next()){
+				String empId = rs.getString("EMP_ID");
+				String empName = rs.getString("EMP_NAME");
+				int empNo = rs.getInt("EMP_NO");
+				
+				System.out.printf("<사번> %s  <이름> %s  <주민번호> %d \n" + empId, empName, empNo);
 				
 				
-					String empId = rs.getString("EMP_ID");
-					String empName = rs.getString("EMP_NAME");
-					String empDp = rs.getString("DEPT_TITLE");
-					
-					System.out.printf("사번 : %s / 이름 : %s / 부서명 : %s \n" , empId, empName, empDp);
-					
-					
-				}
+			}
 			
 			
 		}catch(ClassNotFoundException e) {
 			e.printStackTrace();
-				
-				
-			
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
-			
 			
 		}finally {
 			
@@ -68,9 +59,10 @@ public class JDBCExample3 {
 				
 			}catch(SQLException e) {
 				e.printStackTrace();
-				
 			}
+			
 		}
+		
 		
 	}
 
