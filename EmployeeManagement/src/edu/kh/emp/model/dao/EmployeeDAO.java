@@ -438,5 +438,124 @@ public class EmployeeDAO {
 	}
 	
 	
+	public List<Employee> selectDeptEmp(String departmentTitle) {
+		
+		
+		List<Employee> empList = new ArrayList<>();
+		
+			try {
+				
+				Class.forName(driver);
+				conn = DriverManager.getConnection(url, user, pw);
+				
+				String sql = "SELECT EMP_ID, EMP_NAME, EMP_NO, EMAIL, PHONE, DEPT_TITLE, JOB_NAME, SALARY\r\n"
+						+ "FROM EMPLOYEE\r\n"
+						+ "JOIN DEPARTMENT ON(DEPT_ID = DEPT_CODE)\r\n"
+						+ "JOIN JOB USING(JOB_CODE)\r\n"
+						+ "WHERE DEPT_TITLE = '"+departmentTitle+"'";
+			
+				stmt = conn.createStatement();
+				rs = stmt.executeQuery(sql);
+				
+//				if(rs.next()) {
+//				
+//					int empId = rs.getInt("EMP_ID"); // -> 파라미터와 같은 값이므로 불필요
+//					String empName = rs.getString("EMP_NAME");
+//					String empNo = rs.getString("EMP_NO");
+//					String email = rs.getString("EMAIL");
+//					String phone = rs.getString("PHONE");
+////					String departmentTitle = rs.getString("DEPT_TITLE");
+//					String jobName = rs.getString("JOB_NAME");
+//					int salary = rs.getInt("SALARY");
+//					
+//					emp = new Employee(empId, empName, empNo, email, phone, departmentTitle, jobName, salary);
+//					
+//				}
+				
+				while(rs.next()) {
+					
+					int empId = rs.getInt("EMP_ID");
+					String empName = rs.getString("EMP_NAME");
+					String empNo = rs.getString("EMP_NO");
+					String email = rs.getString("EMAIL");
+					String phone = rs.getString("PHONE");
+//					String departmentTitle = rs.getString("DEPT_TITLE");
+					String jobName = rs.getString("JOB_NAME");
+					int salary = rs.getInt("SALARY");
+					
+					Employee emp = new Employee(empId, empName, empNo, email, phone, departmentTitle, jobName, salary);
+							
+					empList.add(emp);
+				}
+					
+			}catch(Exception e){
+				e.printStackTrace();
+			}finally {
+				try {
+					if(rs != null)rs.close();
+					if(stmt != null)stmt.close();
+					if(conn != null)conn.close();					
+					
+			}catch(Exception e) {
+				e.printStackTrace();
+		}
+	}
+	return empList;
+	
+
+
+}
+	public List<Employee> selectSalaryEmp(int salary) {
+			
+			
+			List<Employee> empList = new ArrayList<>();
+			
+				try {
+					
+					Class.forName(driver);
+					conn = DriverManager.getConnection(url, user, pw);
+					
+					String sql = "SELECT EMP_ID, EMP_NAME, EMP_NO, EMAIL, PHONE, DEPT_TITLE, JOB_NAME, SALARY\r\n"
+							+ "FROM EMPLOYEE\r\n"
+							+ "JOIN DEPARTMENT ON(DEPT_ID = DEPT_CODE)\r\n"
+							+ "JOIN JOB USING(JOB_CODE)\r\n"
+							+ "WHERE SALARY > '"+salary+"'";
+				
+					stmt = conn.createStatement();
+					rs = stmt.executeQuery(sql);
+	
+					while(rs.next()) {
+						
+						int empId = rs.getInt("EMP_ID");
+						String empName = rs.getString("EMP_NAME");
+						String empNo = rs.getString("EMP_NO");
+						String email = rs.getString("EMAIL");
+						String phone = rs.getString("PHONE");
+						String departmentTitle = rs.getString("DEPT_TITLE");
+						String jobName = rs.getString("JOB_NAME");
+//						int salary = rs.getInt("SALARY");
+						
+						Employee emp = new Employee(empId, empName, empNo, email, phone, departmentTitle, jobName, salary);
+								
+						empList.add(emp);
+					}
+						
+				}catch(Exception e){
+					e.printStackTrace();
+				}finally {
+					try {
+						if(rs != null)rs.close();
+						if(stmt != null)stmt.close();
+						if(conn != null)conn.close();					
+						
+				}catch(Exception e) {
+					e.printStackTrace();
+			}
+		}
+		return empList;
+	}
+	
+		
+		
 	
 }

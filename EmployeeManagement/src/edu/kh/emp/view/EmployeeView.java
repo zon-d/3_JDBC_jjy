@@ -48,8 +48,8 @@ public class EmployeeView {
 				case 3: selectEmpId(); break;
 				case 4: updateEmployee();  break;
 				case 5: deleteEmployee(); break;
-				case 6: break;
-				case 7: break;
+				case 6: selectDeptEmp(); break;
+				case 7: selectSalaryEmp(); break;
 				case 8: break;
 				case 9: selectEmpNo(); break;
 				case 0: System.out.println("프로그램을 종료합니다...") ; break;
@@ -66,7 +66,7 @@ public class EmployeeView {
 			
 		}while(input != 0);
 	}
-	
+
 	/**
 	 * 전체 사원 정보 조회
 	 */
@@ -261,36 +261,65 @@ public class EmployeeView {
 	 */
 	public void deleteEmployee() {
 		
-		System.out.println("<사번이 일치하는 사원 정보 삭제>");
-		
-		int empId = inputEmpId(); // 사번 입력
-		
-		System.out.print("정말 삭제 하시겠습니다(Y/N)?");
-		char input = sc.next().toUpperCase().charAt(0); // Y/N 대소문자 구분 없이 입력 받아 대문자로 전환 -> (toUpperCase())
-		
-		if(input == 'Y') {
-			// 삭제를 수행하는 DAO 호출
-			// 성공 : "삭제되었습니다."
+			System.out.println("<사번이 일치하는 사원 정보 삭제>");
 			
-			int result = dao.deleteEmployee(empId);
+			int empId = inputEmpId(); // 사번 입력
 			
-			if(result > 0) {
+			System.out.print("정말 삭제 하시겠습니다(Y/N)?");
+			char input = sc.next().toUpperCase().charAt(0); // Y/N 대소문자 구분 없이 입력 받아 대문자로 전환 -> (toUpperCase())
+			
+			if(input == 'Y') {
+				// 삭제를 수행하는 DAO 호출
+				// 성공 : "삭제되었습니다."
 				
-					System.out.println("사원 정보가 삭제되었습니다.");
-			}else {
-			System.out.println("취소되었습니다.");
+				int result = dao.deleteEmployee(empId);
+				
+				if(result > 0) {
+					
+						System.out.println("사원 정보가 삭제되었습니다.");
+				}else {
+				System.out.println("취소되었습니다.");
+			}
 		}
-			
-				
-				
-				
-			
-		}
+	}
+	
+	public void selectDeptEmp() {
 		
-			
+		System.out.println("<입력 받은 부서와 일치하는 모든 사원 정보 조회>");
 		
+		System.out.print("부서명 입력 : ");
+		String departmentTitle = sc.next();
+		
+		List<Employee> empList = dao.selectDeptEmp(departmentTitle);
+		
+		printAll(empList);
 		
 	}
 	
+	public void selectSalaryEmp() {
+		
+		System.out.println("<입력 받은 급여 이상을 받는 모든 사원 정보 조회>");
+		
+		System.out.print("급여 입력 : ");
+		int salary = sc.nextInt();
+		
+		List<Employee> empList = dao.selectSalaryEmp(salary);
+		
+		printAll(empList);
+	}
 	
+	public void selectDeptTotalSalary() {
+		
+		System.out.println("<부서별 급여 합 전체 조회>");
+		
+		System.out.println("부서명 입력 : ");
+		String departmentTitle = sc.next();
+		
+		
+		
+		
+	}
+
+
+
 }
