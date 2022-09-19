@@ -161,5 +161,22 @@ public class MainDAO {
 		// 8. 조회 결과 반환
 		return loginMember;
 	}
+	
+	public Member memberView(Connection conn, String memberId, String memberName, String memberGender, String enrollDate) {
+		
+		Member memberView = null;
+		
+		try {
+			String sql = prop.getProperty("memberView");
+			
+			stmt = conn.createStatement();
+			
+			rs = stmt.executeQuery(sql);
+		
+		
+		return memberView;
+		
+		
+	}
 
 }

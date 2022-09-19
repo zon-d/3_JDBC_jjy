@@ -77,6 +77,15 @@ public class MainService {
 		return loginMember;
 	}
 	
+	public Member memberView(String memberId, String memberName, String memberGender, String enrollDate) {
+		
+		Connection conn = getConnection();
+		
+		Member memberView = dao.memberView();
+		
+		return memberView;
+	}
+	
 	
 	
 	

@@ -68,8 +68,8 @@ public class MainView {
 					System.out.println();
 
 					switch (input) {
-					case 1:	login(); break; // 로그인
-					case 2:	signUp(); break; 
+					case 1:	memberView(); break; // 회원 기능
+					case 2:	; break; // 게시판 기능
 					case 0: // 로그아웃 == loginMember가 참조하는 객체 없음( == null)
 						// 로그인 == loginMember가 참조하는 객체 존재
 						loginMember = null;
@@ -257,6 +257,18 @@ public class MainView {
     * 
     * */
 	
-	
+	/**
+	 * 내 정보 조회
+	 */
+	private void memberView() {
+		
+		System.out.println("[내 정보 조회]");
+		
+		memberView = service.memberView(merberId, memberName, memeberGender, enrollDate);
+		
+		printOne(memberView);
+		
+		
+	}
 
 }
