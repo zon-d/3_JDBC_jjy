@@ -162,21 +162,8 @@ public class MainDAO {
 		return loginMember;
 	}
 	
-	public Member memberView(Connection conn, String memberId, String memberName, String memberGender, String enrollDate) {
+	
 		
-		Member memberView = null;
-		
-		try {
-			String sql = prop.getProperty("memberView");
-			
-			stmt = conn.createStatement();
-			
-			rs = stmt.executeQuery(sql);
-		
-		
-		return memberView;
-		
-		
-	}
+	
 
 }

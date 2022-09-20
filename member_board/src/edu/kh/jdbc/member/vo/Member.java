@@ -91,6 +91,18 @@ public class Member {
 		this.enrollDate = enrollDate;
 	}
 
+	public Member(String memberId, String memberName, String memberGender) {
+		super();
+		this.memberId = memberId;
+		this.memberName = memberName;
+		this.memberGender = memberGender;
+	}
+
+	public Member() {
+		// TODO Auto-generated constructor stub
+	}
+
+
 	
 
 	
