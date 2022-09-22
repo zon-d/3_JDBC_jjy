@@ -4,6 +4,7 @@ import java.security.DrbgParameters.NextBytes;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import edu.kh.jdbc.board.view.BoardView;
 import edu.kh.jdbc.main.model.service.MainService;
 import edu.kh.jdbc.member.view.MemberView;
 import edu.kh.jdbc.member.vo.Member;
@@ -23,6 +24,7 @@ public class MainView {
 	
 	// 회원 기능 메뉴 객체 생성
 	private MemberView memberView = new MemberView();
+	private BoardView boardView = new BoardView();
 
 	/**
 	 * 메인 메뉴 출력 메서드
@@ -74,7 +76,9 @@ public class MainView {
 
 					switch (input) {
 					case 1:	memberView.memberMenu(loginMember); break; // 회원 기능 서브 메뉴 출력
-					case 2:	; break; // 게시판 기능
+					case 2: boardView.boardMenu() ; break; // 게시판 기능
+					// -> 회원 정보가 필요한 경우 static에서 얻어와 사용할 예정
+					
 					case 0: // 로그아웃 == loginMember가 참조하는 객체 없음( == null)
 						// 로그인 == loginMember가 참조하는 객체 존재
 						loginMember = null;
@@ -250,8 +254,9 @@ public class MainView {
     *     
     *     2-1. 게시글 수정 (자신의 게시글만)
     *     2-2. 게시글 삭제 (자신의 게시글만)
-    *     
     *     2-3. 댓글 작성
+    *     
+    *     // 자신이 작성한 글 일때만 메뉴 노출
     *     2-4. 댓글 수정 (자신의 댓글만)
     *     2-5. 댓글 삭제 (자신의 댓글만)
     * 
