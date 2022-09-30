@@ -59,7 +59,7 @@ public class CommentService {
 		
 		Connection conn = getConnection();
 		
-		int result = dao.deleteComment(conn, commentNo);
+		int result = dao.deleteComment(conn, comientNo);
 		
 		if(result > 0) commit(conn);
 		else		   rollback(conn);
